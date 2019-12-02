@@ -9,7 +9,7 @@ class Input extends Component{
                 {
                     this.props.title  ? <label>{this.props.title}:</label>  : ''
                 }
-                <input type={this.props.type} placeholder={this.props.placeholder} className={(this.props.usedFor === 'search') ? styles.searchInput : styles.simple} onChange={this.props.onChange} id={this.props.id} />
+                <input type={this.props.type} placeholder={this.props.placeholder} className={(this.props.usedFor === 'search') ? styles.searchInput : styles.simple} onChange={this.props.onChange} id={this.props.id} onBlur={this.props.onBlur} />
             </div>
         );
         return input;

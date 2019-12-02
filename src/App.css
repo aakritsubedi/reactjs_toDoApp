@@ -35,8 +35,6 @@
 .add-todo-container{
   text-align: center;
   border-bottom: 1px solid #f4f4f4;
-  border-top: 1px solid #f4f4f4;
-  margin-top: 5px;
   padding:5px;
 }
 

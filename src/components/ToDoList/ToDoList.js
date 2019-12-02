@@ -13,9 +13,9 @@ class  ToDoList extends Component{
                 </Moment>
                 <input type='checkbox'  className={styles.checkbox} onChange={this.props.onChange}/>
 
-                <span className={styles.title} contentEditable={this.props.editStatus} onBlur={this.props.editTitle}>{this.props.title}</span>
+                <span className={styles.title} contentEditable={this.props.editStatus} >{this.props.title}</span>
                 
-                <p className={styles.desc} contentEditable={this.props.editStatus} onBlur={this.props.editContent}>{this.props.desc}</p>
+                <p className={styles.desc} contentEditable={this.props.editStatus}>{this.props.desc}</p>
                 <Btn className={styles.btn+' '+styles.btnWarning} onClick={this.props.editStatus ? this.props.saveEdit : this.props.edit} title={this.props.editStatus ? 'Save': 'Edit'}/> 
                 <Btn className={styles.btn+' '+styles.btnWarning} onClick={this.props.delete} title='Delete'/>
                 

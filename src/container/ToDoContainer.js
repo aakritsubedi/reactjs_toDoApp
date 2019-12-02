@@ -11,9 +11,7 @@ class ToDo extends Component{
         super();
         this.task=[];
         this.state={
-            allToDo: this.task,
-            title: '',
-            content: ''
+            allToDo: this.task
         }
     }
     componentDidMount(){
@@ -24,8 +22,7 @@ class ToDo extends Component{
         this.getTask(keyword);
     }
     deleteToDo(items){
-        let indexOfItems=null;
-        this.task.indexOf(items);
+        let indexOfItems=this.task.indexOf(items);
         this.task.splice(indexOfItems,1);
         this.setState({
             task: this.task
@@ -38,29 +35,23 @@ class ToDo extends Component{
             allToDo: this.task
         })
     }
-    saveEdit(items){
+    saveEdit(items,e){
+        const title=e.target.parentElement.children[2].innerText;
+        const desc=e.target.parentElement.children[3].innerText;
+        
         let indexOfItem=this.task.indexOf(items);
-        this.task[indexOfItem].title=this.state.title;
-        this.task[indexOfItem].desc=this.state.content;
+        this.task[indexOfItem].title=title;
+        this.task[indexOfItem].desc=desc;
         this.task[indexOfItem].edit=false;
         this.setState({
             task: this.task,
         })
     }
-    addTitle(e){
-        this.setState({
-            title: e.target.value
-        })
-    }
-    addContent(e){
-        this.setState({
-            content: e.target.value
-        })
-    }
-    addToDo(){
+    addToDo(e){
+        const inputs = e.target.parentElement.children;
         let items ={id: this.task.length+1,
-        title: this.state.title,
-        desc: this.state.content,
+        title: inputs[1].children[0].value,
+        desc: inputs[2].children[0].value,
         created_at:Date.now(),
         edited_at:Date.now(),
         status:'incomplete',
@@ -108,24 +99,14 @@ class ToDo extends Component{
             allToDo : this.task
         })
     }
-    editTitle(e){
-        this.setState({
-            title: e.target.innerText
-        });
-    }
-    editContent(e){
-        this.setState({
-            content: e.target.innerText
-        });
-    }
+    
     render(){
         let todo = this.task.map(items=>{
-            return <ToDoList title={items.title} key={items.id} id={items.id} desc={items.desc} status={items.status} onChange={()=>this.checked(items)} created_at={items.created_at} delete={()=>this.deleteToDo(items)} edit={()=>this.editToDo(items)} editStatus={items.edit} saveEdit={()=>this.saveEdit(items)} editTitle={(e)=>this.editTitle(e)} editContent={(e)=>this.editContent(e)}/>
+            return <ToDoList title={items.title} key={items.id} id={items.id} desc={items.desc} status={items.status} onChange={()=>this.checked(items)} created_at={items.created_at} delete={()=>this.deleteToDo(items)} edit={()=>this.editToDo(items)} editStatus={items.edit} saveEdit={(e)=>this.saveEdit(items,e)}/>
         })
         let toDo = (
             <div className='toDoContainer'>
-                <AddToDo title={this.state.title} content={this.state.content} onClick={()=>this.addToDo()} 
-                addTitle={(e)=>this.addTitle(e)} addContent={(e)=>this.addContent(e)}/>
+                <AddToDo title={this.state.title} content={this.state.content} onClick={(e)=>this.addToDo(e)} />
                 <Search onChange={()=>this.searchToDo()}/>
                 <ul className='toDoList'>
                     {todo}
